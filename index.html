@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hi Baby ;)</title>
+
+  <!-- Cute font -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffd6e0;
+      font-family: 'Pacifico', cursive;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      color: #ff4d6d;
+    }
+
+    #subtext {
+      color: #ff758f;
+      margin-bottom: 20px;
+      height: 24px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background: #fff;
+      color: #ff4d6d;
+      position: absolute;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4d6d;
+      font-size: 20px;
+      animation: float 2s ease-out forwards;
+    }
+
+    @keyframes float {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-150px) scale(1.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="question">Verina, Will you be my Valentine? ??</h1>
+    <div id="subtext"></div>
+    <button id="yes" onclick="yesClick()">Yes ??</button>
+    <button id="no" onmouseover="moveNo()">No ??</button>
+  </div>
+
+  <script>
+    let noSize = 1;
+    let messages = [
+      "Are you sure? ??",
+      "Like… really sure? ??",
+      "That hurts ??",
+      "Think again ??",
+      "Okay wow ??",
+      "Last chance ??"
+    ];
+    let messageIndex = 0;
+
+    function moveNo() {
+      const noBtn = document.getElementById("no");
+
+      // Move button
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+
+      // Shrink button
+      noSize *= 0.85;
+      noBtn.style.transform = `scale(${noSize})`;
+
+      // Change text
+      document.getElementById("subtext").innerText =
+        messages[messageIndex % messages.length];
+      messageIndex++;
+    }
+
+    function yesClick() {
+      document.getElementById("question").innerText = "YAY!! ????";
+      document.getElementById("subtext").innerText = "Best decision ever.";
+      document.getElementById("no").style.display = "none";
+
+      // Hearts/confetti
+      for (let i = 0; i < 30; i++) {
+        createHeart();
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "??";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = window.innerHeight + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
